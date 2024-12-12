@@ -1,10 +1,11 @@
 import Image from "next/image";
 
-import { useCallback } from "react";
-import { useAudio, useKey } from "react-use";
+import { useCallback, useEffect, useState } from "react";
+import { useAudio, useKey, useStartTyping } from "react-use";
 
 import { cn } from "@/lib/utils";
 import { challenges } from "@/db/schema";
+import { log } from "console";
 
 type Props = {
   id: number;
@@ -17,7 +18,8 @@ type Props = {
   disabled?: boolean;
   status?: "correct" | "wrong" | "none",
   type: typeof challenges.$inferSelect["type"];
-  lessonId: number
+  lessonId: number;
+  onCheck: (id:number) => void
 };
 
 export const Card = ({
@@ -31,10 +33,47 @@ export const Card = ({
   status,
   disabled,
   type,
-  lessonId
+  lessonId,
+  onCheck
 }: Props) => {
-  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
 
+
+  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
+  const [res, setRes] = useState<string>("");
+  useEffect(() => {
+    // Connect to the WebSocket server
+    console.log("Connecting to WebSocket...");
+
+    const socket = new WebSocket("ws://127.0.0.1:8000/ws");
+    
+    socket.onopen = () => {
+      console.log("Connected to WebSocket.");
+    };
+    // Listen for incoming messages (new updates)
+    socket.onmessage = (event) => {
+      console.log('received message');
+      
+      setRes(event.data);
+      console.log(res);
+    }
+      
+    socket.onerror = (event) => {
+      console.log("WebSocket error:", event);
+    };
+
+    socket.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+    // Cleanup WebSocket connection on component unmount
+    return () => {
+      socket.close();
+    };
+  }, []);
+    useEffect(()=>{
+      if(res === text) {
+        handleAnswer();
+      }
+    }, [res])
   const handleClick = useCallback(() => {
     if (disabled) return;
 // this audio shit is async, it never returns (because we made it) so onClick is never reached.
@@ -42,11 +81,18 @@ export const Card = ({
     onClick();
   }, [disabled, onClick, controls]);
 
+  const handleAnswer = () => {
+    
+    onCheck(id);    
+  }
   useKey(shortcut, handleClick, {}, [handleClick]);
   if(lessonId === 6) {
     return (
-      <div onClick = {handleClick} className="w-full p-2 border-2 rounded-xl">
-        <iframe src="http://127.0.0.1:8000/" className="h-full w-full"></iframe>
+      <div className="w-full h-96 -mt-4 p-2 border-2 rounded-xl">
+        <iframe src="http://127.0.0.1:8000/video_feed" className="h-full w-full"></iframe>
+        {/* <p>{res}</p>
+        <p>{text}</p>
+        <button onClick={handleAnswer}>Check</button> */}
       </div>
     )
   }

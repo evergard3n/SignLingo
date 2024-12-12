@@ -10,7 +10,8 @@ type Props = {
   selectedOption?: number;
   disabled?: boolean;
   type: typeof challenges.$inferSelect["type"];
-  lessonId: number
+  lessonId: number;
+  onCheck: (id:number) => void
 };
 
 export const Challenge = ({
@@ -21,6 +22,7 @@ export const Challenge = ({
   disabled,
   type,
   lessonId,
+  onCheck
 }: Props) => {
   return (
     <div className={cn(
@@ -43,6 +45,7 @@ export const Challenge = ({
           disabled={disabled}
           type={type}
           lessonId = {lessonId}
+          onCheck={onCheck}
         />
       ))}
     </div>
