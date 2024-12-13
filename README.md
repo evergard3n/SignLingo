@@ -1,10 +1,5 @@
-# Build a Duolingo Clone With Nextjs, React, Drizzle, Stripe (2024)
+# SignLingo - học ngôn ngữ ký hiệu trực quan
 
-![Duolingo thumb (1)](https://github.com/AntonioErdeljac/next14-duolingo-clone/assets/23248726/d58e4b55-bb09-456f-978e-f5f31e81b870)
-
-This is a repository for a "Build a Duolingo Clone With Nextjs, React, Drizzle, Stripe (2024)" youtube video.
-
-[VIDEO TUTORIAL](https://www.youtube.com/watch?v=dP75Khfy4s4)
 
 Key Features:
 - 🌐 Next.js 14 & server actions
@@ -20,8 +15,6 @@ Key Features:
 - 🔄 Practice old lessons to regain hearts
 - 🏆 Leaderboard
 - 🗺 Quests milestones
-- 🛍 Shop system to exchange points with hearts
-- 💳 Pro tier for unlimited hearts using Stripe
 - 🏠 Landing page
 - 📊 Admin dashboard React Admin
 - 🌧 ORM using DrizzleORM
@@ -76,6 +69,13 @@ or
 ```shell
 npm run db:prod
 
+```
+### Start FastAPI server
+Requires Python 3.10. Conda virtual enviroment is recommended
+```shell
+cd 'backend'
+pip install -r requirements.txt
+fastapi dev main.py
 ```
 
 ### Start the app
