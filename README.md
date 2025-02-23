@@ -1,27 +1,5 @@
 # SignLingo - học ngôn ngữ ký hiệu trực quan
 
-
-Key Features:
-- 🌐 Next.js 14 & server actions
-- 🗣 AI Voices using Elevenlabs AI
-- 🎨 Beautiful component system using Shadcn UI
-- 🎭 Amazing characters thanks to KenneyNL
-- 🔐 Auth using Clerk
-- 🔊 Sound effects
-- ❤️ Hearts system
-- 🌟 Points / XP system
-- 💔 No hearts left popup
-- 🚪 Exit confirmation popup
-- 🔄 Practice old lessons to regain hearts
-- 🏆 Leaderboard
-- 🗺 Quests milestones
-- 🏠 Landing page
-- 📊 Admin dashboard React Admin
-- 🌧 ORM using DrizzleORM
-- 💾 PostgresDB using NeonDB
-- 🚀 Deployment on Vercel
-- 📱 Mobile responsiveness
-
 ### Prerequisites
 
 **Node version 14.x**
